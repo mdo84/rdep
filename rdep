@@ -1,0 +1,17 @@
+#!/bin/bash
+# this script shows dependencies of R-Packages
+
+
+PACKAGE=${1}
+
+mkdir -p "deps"
+
+wget --quiet ftp://cran.r-project.org/pub/R/src/contrib/${1}_*.tar.gz
+
+for i in $(ls | grep tar.gz); do
+  tar xf ${i}
+done
+
+grep "Depends:" ${PACKAGE}/DESCRIPTION
+grep "Imports:" ${PACKAGE}/DESCRIPTION
+grep "Suggests:" ${PACKAGE}/DESCRIPTION
